@@ -1,18 +1,39 @@
-package model;
+package anz.model;
 
 import java.time.Instant;
 import java.util.Currency;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
- * Bean representing a transaction in an account. Some similar assumptions to {@link Account}
+ * Entity representing a transaction in an account. Some similar assumptions to {@link Account}
  * for simplicity.
  */
+@Entity
 public class Transaction {
-    private int accountNumber;
+
+    @Id
+    @GeneratedValue
+    @Column
+    private UUID id;
+    @ManyToOne
+    @JoinColumn(name = "account_Id")
+    private Account account;
+    @Column
     private Instant valueDate;
+    @Column
     private Currency currency;
+    @Column
     private double amount;
+    @Column
     private TransactionType transactionType;
+    @Column
     private String transactionNarrative;
 
     public enum TransactionType {
@@ -20,12 +41,21 @@ public class Transaction {
         CREDIT
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public UUID getId() {
+        return id;
     }
 
-    public Transaction setAccountNumber(final int accountNumber) {
-        this.accountNumber = accountNumber;
+    public Transaction setId(final UUID id) {
+        this.id = id;
+        return this;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public Transaction setAccount(final Account account) {
+        this.account = account;
         return this;
     }
 

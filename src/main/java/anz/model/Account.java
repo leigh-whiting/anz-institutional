@@ -1,27 +1,55 @@
-package model;
+package anz.model;
 
 import java.time.Instant;
 import java.util.Currency;
+import java.util.UUID;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /**
- * Bean representing an account
+ * Entity representing an account
  *
  * Plenty of assumptions here for simplicity:
- *  - Integer account number? Probably would be a strongly typed id
  *  - Instants for dates? Assuming a server stores UTC timestamps - the UI can translate
  *  - Balance as a double? Would be some sort of fixed point decimal to correctly store fractional cents I imagine
  */
+@Entity
 public final class Account {
+
+    @Id
+    @GeneratedValue
+    @Column
+    private UUID id;
+    @Column
     private int accountNumber;
+    @Column
     private String accountName;
+    @Column
+    private String username;
+    @Column
     private AccountType accountType;
+    @Column
     private Instant balanceDate;
+    @Column
     private Currency currency;
+    @Column
     private double balance;
 
     public enum AccountType {
         SAVINGS,
         CURRENT
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public Account setId(final UUID id) {
+        this.id = id;
+        return this;
     }
 
     public int getAccountNumber() {
@@ -41,6 +69,16 @@ public final class Account {
         this.accountName = accountName;
         return this;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public Account setUsername(final String username) {
+        this.username = username;
+        return this;
+    }
+
 
     public AccountType getAccountType() {
         return accountType;

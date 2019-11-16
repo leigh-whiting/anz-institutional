@@ -20,10 +20,20 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter-web'
+test {
+    useJUnitPlatform()
+}
 
-    testCompile 'junit:junit:4.12'
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-security'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.security:spring-security-oauth2-resource-server'
+    compile 'org.springframework.security.oauth:spring-security-oauth2:2.3.7.RELEASE'
+    compile 'org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:2.2.1.RELEASE'
+    compile 'com.h2database:h2'
+
+    testCompile 'org.junit.jupiter:junit-jupiter-engine'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.security:spring-security-test'
 }
